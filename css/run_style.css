@@ -1,0 +1,27 @@
+#BoardGame td {
+  margin: 0px;
+  padding: 2px;
+  height: 80px;
+  width: 80px;
+  border-style: hidden;
+  border-color: rgb(0, 0, 0);
+}
+
+#BoardGame tr {
+  margin: 0;
+  padding: 0;
+}
+
+#BoardGame table {
+  background-color: rgb(0, 0, 0);
+}
+
+#BoardGame td img {
+  margin: auto 10px;
+  padding: 0px;
+  height: 60px;
+  width: 60px;
+  border-style: hidden;
+  border-width: 0;
+  outline: none;
+}
