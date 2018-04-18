@@ -11,22 +11,35 @@ function drawBoardGame() {
   }
 }
 
+function insertSprite(id, player) {
+  var newImg = document.createElement('img');
+
+  //if the current player is BotAI
+  if (player == BOT_AI) {
+    newImg.src = 'images/disk/whitebutton.png';
+  }
+  else newImg.src = 'images/disk/blackbutton.png';
+
+  document.getElementById(id).appendChild(newImg);
+}
+
 function drawInitState() {
-  var newWhiteDisk = document.createElement('img');
-  newWhiteDisk.src = 'images/disk/whitebutton.png';
-  document.getElementById('44').appendChild(newWhiteDisk);
+  insertSprite('44', BOT_AI);
+  boardGame[3][3] = 0;
+  diskOfBot.push(new Point(3, 3));
 
-  newWhiteDisk = document.createElement('img');
-  newWhiteDisk.src = 'images/disk/whitebutton.png';
-  document.getElementById('55').appendChild(newWhiteDisk);
+  insertSprite('55', BOT_AI);
+  boardGame[4][4] = 0;  
+  diskOfBot.push(new Point(4, 4));
+  
+  insertSprite('45', PLAYER);
+  boardGame[3][4] = 1;
+  diskOfPlayer.push(new Point(3, 4));
 
-  var newBlackDisk = document.createElement('img');
-  newBlackDisk.src = 'images/disk/blackbutton.png';
-  document.getElementById('45').appendChild(newBlackDisk);
+  insertSprite('54', PLAYER);
+  boardGame[4][3] = 1;
+  diskOfPlayer.push(new Point(4, 3));
 
-  newBlackDisk = document.createElement('img');
-  newBlackDisk.src = 'images/disk/blackbutton.png';
-  document.getElementById('54').appendChild(newBlackDisk);
   /*
   document.getElementById("i44").src = Player.disk;
   document.getElementById("i55").src = Player.disk;
