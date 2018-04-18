@@ -6,17 +6,14 @@ var Player = {
   disk: 'images/disk/whitebutton.png'
 };
 
-var Point = {
-  x: 0,
-  y: 0,
-  Point: function (x, y) {
-    this.x = x;
-    this.y = y;
-  },
-  toId: function () {    
+function Point(x, y) {
+  this.x = x;
+  this.y = y;
+  this.toId = function(){
     return (this.x + 1).toString() + (this.y + 1);
   }
 };
+
 
 var BOT_AI = 0, PLAYER = 1;
 var boardGame = [
