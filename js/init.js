@@ -4,8 +4,8 @@ document.head.appendChild(imported);
 
 
 function drawBoardGame() {
-  for (var i = 1; i < 9; i++) {
-    for (var j = 1; j < 9; j++) {
+  for (var i = 0; i < 8; i++) {
+    for (var j = 0; j < 8; j++) {
       document.getElementById(i.toString() + j.toString()).style.backgroundColor = "rgb(16, 227, 69)";
     }
   }
@@ -24,19 +24,19 @@ function insertSprite(id, player) {
 }
 
 function drawInitState() {
-  insertSprite('44', BOT_AI);
+  insertSprite('33', BOT_AI);
   boardGame[3][3] = 0;
   diskOfBot.push(new Point(3, 3));
 
-  insertSprite('55', BOT_AI);
+  insertSprite('44', BOT_AI);
   boardGame[4][4] = 0;  
   diskOfBot.push(new Point(4, 4));
   
-  insertSprite('45', PLAYER);
+  insertSprite('34', PLAYER);
   boardGame[3][4] = 1;
   diskOfPlayer.push(new Point(3, 4));
 
-  insertSprite('54', PLAYER);
+  insertSprite('43', PLAYER);
   boardGame[4][3] = 1;
   diskOfPlayer.push(new Point(4, 3));
 
