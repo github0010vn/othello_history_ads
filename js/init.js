@@ -25,11 +25,11 @@ function insertSprite(id, player) {
 
 function drawInitState() {
   insertSprite('33', BOT_AI);
-  boardGame[3][3] = 0;
+  boardGame[3][3] = -1;
   diskOfBot.push(new Point(3, 3));
 
   insertSprite('44', BOT_AI);
-  boardGame[4][4] = 0;  
+  boardGame[4][4] = -1;  
   diskOfBot.push(new Point(4, 4));
   
   insertSprite('34', PLAYER);

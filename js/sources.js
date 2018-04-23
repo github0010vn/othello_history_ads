@@ -9,8 +9,12 @@ var Player = {
 function Point(x, y) {
   this.x = x;
   this.y = y;
-  this.toId = function(){
-    return (this.x + 1).toString() + (this.y + 1);
+  this.toString = function(){
+    return this.x.toString() + this.y;
+  }
+  this.valueOf = function () {
+    console.log(this.toString());
+    return this.toString();
   }
 };
 
