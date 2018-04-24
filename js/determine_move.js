@@ -2,18 +2,18 @@ function takeTurn() {
 
 }
 
-function checkColumn(x, y) {
+function checkColumn(id) {
+    var x = parseInt(id[0]);
+    var y = parseInt(id[1]);
     var i = x + 1;
     var res = [];
     if (boardGame[i][y] != 0) {
         while (boardGame[i][y] != 0
             && boardGame[i][y] != boardGame[x][y]
-            && boardGame[i][y] != 2 
             && i < 8)
             i++;
         if (i < 8 && boardGame[i][y] == 0) {
-            boardGame[i][y] = 2;
-            res.push(new Point(i, y));
+            res.push(i.toString() + y);
         }
     }
     
@@ -21,31 +21,29 @@ function checkColumn(x, y) {
     if (boardGame[i][y] != 0) {
         while (boardGame[i][y] != 0
             && boardGame[i][y] != boardGame[x][y]
-            && boardGame[i][y] != 2
             && i >= 0)
             i--;
         if (i >= 0 && boardGame[i][y] == 0) {
-            boardGame[i][y] = 2;
-            res.push(new Point(i, y));
+            res.push(i.toString() + y);
         }
     }
     
     return res;
 }
 
-function checkRow(x, y) {
+function checkRow(id) {
+    var x = parseInt(id[0]);
+    var y = parseInt(id[1]);
     var i = y + 1;
     var res = [];
 
     if (boardGame[x][i] != 0) {
         while (boardGame[x][i] != 0
             && boardGame[x][i] != boardGame[x][y]
-            && boardGame[x][i] != 2
             && i < 8) 
             i++
         if (i < 8 && boardGame[x][i] == 0) {
-            boardGame[x][i] = 2;
-            res.push(new Point(x, i));
+            res.push(x.toString() + i);
         }
     }
     
@@ -53,33 +51,31 @@ function checkRow(x, y) {
     if (boardGame[x][i] != 0) {
         while (boardGame[x][i] != 0
             && boardGame[x][i] != boardGame[x][y]
-            && boardGame[x][i] != 2
             && i >= 0) 
             i--;
         
         if (i >= 0 && boardGame[x][i] == 0) {
-            boardGame[x][i] = 2;
-            res.push(new Point(x, i));
+            res.push(x.toString() + i);
         }
     }
     
     return res;
 }
 
-function checkDiag(x, y) {
+function checkDiag(id) {
+    var x = parseInt(id[0]);
+    var y = parseInt(id[1]);
     var i = x + 1, j = y + 1;
     var res = [];
     if (boardGame[i][j] != 0) {
         while (boardGame[i][j] != 0
-            && i < 8 && j < 8
             && boardGame[i][j] != boardGame[x][y]
-            && boardGame[i][j] != 2) {
+            && i < 8 && j < 8) {
             i++;
             j++;
         }
         if (i < 8 && j < 8 && boardGame[i][j] == 0) {
-            boardGame[i][j] = 2;
-            res.push(new Point(i, j));
+            res.push(i.toString() + j);
         }
     } 
     
@@ -87,15 +83,13 @@ function checkDiag(x, y) {
     j = y - 1;
     if (boardGame[i][j] != 0) {
         while (boardGame[i][j] != 0
-            && i < 8 && j >= 0
             && boardGame[i][j] != boardGame[x][y]
-            && boardGame[i][j] != 2) {
+            && i < 8 && j >= 0) {
             i++;
             j--;
         }
         if (i < 8 && j >= 0 && boardGame[i][j] == 0) {
-            boardGame[i][j] = 2;
-            res.push(new Point(i, j));
+            res.push(i.toString() + j);
         }
     }
         
@@ -103,15 +97,13 @@ function checkDiag(x, y) {
     j = y + 1;
     if (boardGame[i][j] != 0) {
         while (boardGame[i][j] != 0
-            && i >= 0 && j < 8
             && boardGame[i][j] != boardGame[x][y]
-            && boardGame[i][j] != 2) {
+            && i >= 0 && j < 8) {
             i--;
             j++;
         }
         if (i >= 0 && j < 8 && boardGame[i][j] == 0) {
-            boardGame[i][j] = 2;
-            res.push(new Point(i, j));
+            res.push(i.toString() + j);
         }
     }
     
@@ -119,27 +111,24 @@ function checkDiag(x, y) {
     j = y - 1;
     if (boardGame[i][j] != 0) {
         while (boardGame[i][j] != 0
-            && i >= 0 && j >= 0
             && boardGame[i][j] != boardGame[x][y]
-            && boardGame[i][j] != 2) {
+            && i >= 0 && j >= 0) {
             i--;
             j--;
         }
         if (i >= 0 && j >= 0 && boardGame[i][j] == 0) {
-            boardGame[i][j] = 2;
-            res.push(new Point(i, j));
+            res.push(i.toString() + j);
         }
     }  
 
     return res;
 }
 
-function checkPossibleState(point) {
-    var x = point.x, y = point.y;
+function checkPossibleState(id) {
     var res = [];
-    res = res.concat(checkColumn(x, y));
-    res = res.concat(checkRow(x, y));
-    res = res.concat(checkDiag(x, y));
+    res = merge(res, checkColumn(id));
+    res = merge(res, checkRow(id));
+    res = merge(res, checkDiag(id));
     return res;
 }
 
@@ -152,12 +141,12 @@ function determineNextMove(idPlayer) {
         opponent = 1;
         for (var i = 0; i < diskOfBot.length; i++) {
             temp = checkPossibleState(diskOfBot[i]);
-            res = res.concat(temp);
+            res = merge(res, temp);;
         }
         return res;
     }    
     for (var i = 0; i < diskOfPlayer.length; i++) {
-        res = res.concat(checkPossibleState(diskOfPlayer[i]));
+        res = merge(res, checkPossibleState(diskOfPlayer[i]));
     }
     return res;    
 }
