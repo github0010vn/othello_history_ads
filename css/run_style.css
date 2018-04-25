@@ -29,6 +29,6 @@
 .grid {
   background-color: rgb(16, 227, 69);
 }
-.selected {
+.hint {
   background-color: rgba(16, 227, 69, 0.664);
 }

@@ -22,8 +22,10 @@ var abc = function (a) {
     this.hello = function () {
         console.log(this.b);
         console.log(this.b);
+        this.c = 2;
     }
 }
 
 var abc = new abc(12);
 abc.hello();
+console.log(abc.c);

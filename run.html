@@ -3,13 +3,17 @@
     <title></title>
     <meta content="">
     <link rel="stylesheet" href="css/run_style.css">
-    <script type="text/javascript" src="js/init.js"></script>
-    <script type="text/javascript" src="js/determine_move.js"></script>
-    <script type="text/javascript" src="js/game_process.js"></script>
+    <script type="text/javascript" src="js/game_model.js"></script>
+    <script type="text/javascript" src="js/game_views.js"></script>
+    <script type="text/javascript" src="js/game_controller.js"></script>
+    <script src="js/game_main.js"></script>
     <script type="text/javascript">
+      var game = new Othello();
       function init() {
-        drawBoardGame();
-        drawInitState();
+        game.init();
+      }
+      function handleClick(id) {
+        game.controller.handleClick(id);
       }
     </script>
 

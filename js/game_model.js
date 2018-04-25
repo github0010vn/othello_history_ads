@@ -1,3 +1,4 @@
+var BOT_AI = -1, PLAYER = 1;
 var isOutOfBoard = function (x, y) {
     return (x > 7 || y > 7 || x < 0 || y < 0);
 }
@@ -17,7 +18,7 @@ var GameModel = function (human, bot) {
         [0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0],
     ];
-    this.turn = 1;
+    this.turn = 0;
     this.players = [human, bot];
     this.legalMoves = []
     this.getPlayer = function (type) {
@@ -37,7 +38,6 @@ var GameModel = function (human, bot) {
                 j += iy;
             }
             if (!isOutOfBoard(i, j) && this.board[i][j] == 0) {
-                console.log(ix.toString() + iy + i + j);
                 res.push(i.toString() + j);
             }
         }        
@@ -53,7 +53,13 @@ var GameModel = function (human, bot) {
         }
         return listLegal;
     }
-    this.getLegalMoves = function (_player) {
+    this.hasLegalMoves = function () {
+        var listMoves = this.getLegalMoves();
+        if (listMoves.length > 0) return true;
+        return false;
+    }
+    this.getLegalMoves = function () {
+        var _player = this.players[this.turn];
         var listMoves = [];
         for (var i = 0; i < _player.counter.length; i++) {
             var temp = this.checkLegalMove(_player.counter[i]);
@@ -61,12 +67,31 @@ var GameModel = function (human, bot) {
         }
         return listMoves;
     }
-    this.placeCounter = function (player, _coordiantes) {
-        var x = parent(_coordiantes[0]), y = parent(_coordiantes[1]);
-        this.flipp(player, _coordiantes);
+    this.letFlip = function (x, y, ix, iy) {
+        var i = x, j = y
+        for (; !isOutOfBoard(i, j); i += ix, j += iy) {
+            if (this.board[x][y] * this.board[i + ix][j + iy] != -1) break;
+        }
+        i += ix;
+        j += iy;
+        if (this.board[i][j] != 0) {
+            for (var m = x, n = y; m != i || n != j; m += ix, n += iy) {
+                this.board[m][n] = this.board[x][y];
+            }
+        }            
     }
-    this.flipp = function (player, _coordiantes) {
-
+    this.flip = function (x, y) {
+        for (var i = -1; i <= 1; i++) {
+            for (var j = -1; j <= 1; j++) {
+                this.letFlip(x, y, i, j);
+            }
+        }
+    }
+    this.placeCounter = function (_coordiantes) {
+        var x = parseInt(_coordiantes[0]), y = parseInt(_coordiantes[1]);
+        var player = this.players[this.turn];
+        this.board[x][y] = player.type;
+        this.flip(x, y);
     }
     this.isTerminal = function () {
         var isExistEmptyPlace = false;
@@ -98,10 +123,5 @@ var BotPlayer = function (type, listCounter) {
     Player.apply(this, [type, listCounter]);
 }
 
-var bot = new BotPlayer(1, ['33', '44']);
-var human = new HumanPlayer(2, ['34', '43']);
-var mode = new GameModel(human, bot);
-console.log(mode.getLegalMoves(human))
-console.log(human.counter);
 
 
