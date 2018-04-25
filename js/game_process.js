@@ -88,15 +88,12 @@ function checkReversi(id, disks) {
     return res;
 }
 
-function doReversi(id, idPlayer) {
-    disk = diskOfPlayer;
-    if (idPlayer == BOT_AI) disk = diskOfBot;
+function doReversi(id, disk) {
+    var x = parseInt(id[0]), y = parseInt(id[1]);
+    var state = boardGame[x][y];
     var listId = checkReversi(id, disk);
-    console.log(listId);
     for (var i = 0; i < listId.length; i++) {
-        element = document.getElementById(listId[i]);
-        element.removeChild(element.childNodes[0]);
-        insertSprite(listId[i], idPlayer);
+        disk.push(listId[i]);
     }
 }
 

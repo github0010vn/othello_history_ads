@@ -13,7 +13,7 @@ function merge(a, b) {
 }
 
 
-var BOT_AI = 0, PLAYER = 1;
+var BOT_AI = -1, PLAYER = 1;
 var boardGame = [
   [0, 0, 0, 0, 0, 0, 0, 0],
   [0, 0, 0, 0, 0, 0, 0, 0],
