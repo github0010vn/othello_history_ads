@@ -7,17 +7,13 @@
     <script type="text/javascript" src="js/game_views.js"></script>
     <script type="text/javascript" src="js/game_controller.js"></script>
     <script src="js/game_main.js"></script>
-    <script type="text/javascript">
-      var game = new Othello();
-      function init() {
-        game.init();
-      }
-      function handleClick(id) {
-        game.controller.handleClick(id);
-      }
-    </script>
-
   </head>
+  <script type="text/javascript">
+    var init = function() {
+      gameInit();
+      humanPerform();
+    }
+  </script>
   <body onLoad="init()">
     <div id="frameBotAI">
       <table id="BotAI">
@@ -25,6 +21,7 @@
           <td><img src="images/bot.png" width="50px" height="50px" alt="Bot"></td>
         </tr>
         <tr>
+          <td>BOT AI PLAYER</td>
           <td id="ScoreBot">Score: </td>
         </tr>
       </table>
@@ -119,6 +116,7 @@
           <td><img src="images/bot.png" width="50px" height="50px" alt="Bot"></td>
         </tr>
         <tr>
+          <td>HUMAN PLAYER</td>
           <td id="ScorePlayer">Score: </td>
         </tr>
       </table>

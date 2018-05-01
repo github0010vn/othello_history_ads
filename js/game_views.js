@@ -32,7 +32,13 @@ var GameView = function () {
             }
         }
     }
+    this.updateScore = function (score, id) {
+        document.getElementById(id).innerHTML = score.toString();
+    }
     this.showHint = function (id) {
         document.getElementById(id).setAttribute('class', 'hint');
+    }
+    this.hideHint = function (id) {
+        document.getElementById(id).setAttribute('class', 'grid');
     }
 }

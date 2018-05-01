@@ -1,31 +1,14 @@
-var player = function(type, list_counter) {
-    this.type = type;
-    this.list_counter = list_counter;
-    this.hello = function() {
-        console.log('hello');
-    };
-};
-
-var human = function (type, list_counter) {
-    player.apply(this, [type, list_counter]);
-    this.other = function() {
-        console.log('other');
-    };
-};
-var h = new human(1, 2);
-h.hello();
-console.log(h.type);
-console.log(h.list_counter);
-
-var abc = function (a) {
-    this.b = a; 
-    this.hello = function () {
-        console.log(this.b);
-        console.log(this.b);
-        this.c = 2;
-    }
+abc = function (j) {
+    if (j == 0) return;
+    for (var i = 0; i < 10; i++)
+        console.log('abc');
+    abc(j - 1);
 }
 
-var abc = new abc(12);
-abc.hello();
-console.log(abc.c);
+dce = function() {
+    console.log('dce');
+    console.log('dce');
+}
+
+abc(5);
+dce();
