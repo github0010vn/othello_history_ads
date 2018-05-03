@@ -1,3 +1,38 @@
+var MAX_SIZE_ADS = 10;
+var minADS = [];
+var maxADS = [];
+
+insertADS = function (ads, element) {
+    len = ads.length;
+    if (len >= MAX_SIZE_ADS) {
+        ads.splice(len - 1, 1);
+    }
+    ads.unshift(element);
+}
+moveToFront = function (ads, element) {
+    var i = ads.indexOf(element);
+    ads.splice(i, 1);
+    ads.unshift(element);
+}
+
+filterMovesWithADS = function (ads, listMoves) {
+    for (var i = ads.length - 1; i >= 0; i--) {
+        elem = ads[i];
+        index = listMoves.indexOf(elem);
+        if (index != -1) {
+            listMoves.splice(index, 1);
+            listMoves.unshift(elem);
+        }
+    }
+}
+
+queryADS = function (ads, element) {
+    if (ads.indexOf(element) != -1) {
+        moveToFront(ads, element);
+    }
+    else insertADS(ads, element);
+}
+
 var Player = function (model, view, type) {
     this.type = type;
     this.model = model;
@@ -51,7 +86,7 @@ var BotPlayer = function (model, view, type) {
         this.model.turn = PLAYER;
     }
     this.decide = function () {
-        var depth = 6, bestScore = - INFINITY, bestMove = null;
+        var depth = 10, bestScore = - INFINITY, bestMove = null;
         var listMoves = this.model.getLegalMoves(this.type);
         cpyModel = this.model.cloneObj();
         for (var i = 0; i < listMoves.length; i++) {
@@ -74,13 +109,16 @@ var BotPlayer = function (model, view, type) {
         var worst = INFINITY;
         cpyModel = model.cloneObj();
         listMoves = model.getLegalMoves(playerType);
+        filterMovesWithADS(minADS, listMoves);
         for (var i = 0; i < listMoves.length; i++) {
             var move = listMoves[i];
             var moveScore = this.getMaxValue(playerType * -1, model.placeCounter(playerType, move), depth - 1, alpha, beta);
             worst = Math.min(worst, moveScore);
             beta = Math.min(beta, moveScore);
-            if (beta <= alpha)
+            if (beta <= alpha) {
+                queryADS(minADS, move);
                 return worst;    
+            }
         }
         return worst;
     }
@@ -93,13 +131,16 @@ var BotPlayer = function (model, view, type) {
         var best = INFINITY;
         cpyModel = model.cloneObj();
         listMoves = model.getLegalMoves(playerType);
+        filterMovesWithADS(maxADS, listMoves);
         for (var i = 0; i < listMoves.length; i++) {
             var move = listMoves[i];
             var moveScore = this.getMinValue(playerType * -1, model.placeCounter(playerType, move), depth - 1, alpha, beta);
             best = Math.max(best, moveScore);
             alpha = Math.max(alpha, moveScore);
-            if (beta <= alpha)
+            if (beta <= alpha) {
+                queryADS(maxADS, move);
                 return best;    
+            }
         }
         return best;
     }

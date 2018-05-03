@@ -1,14 +1,26 @@
-abc = function (j) {
-    if (j == 0) return;
-    for (var i = 0; i < 10; i++)
-        console.log('abc');
-    abc(j - 1);
+var a = function (i) {
+    this.data = i;
 }
 
-dce = function() {
-    console.log('dce');
-    console.log('dce');
+var b = []
+for (var i = 0; i < 10; i++) {
+    b.push(new a(i));
+}
+e = b[3];
+e.data = 5;
+
+
+
+
+b.splice(3, 1);
+b.unshift(e);
+
+console.log('chi so');
+console.log(b.indexOf(0));
+console.log('dc tim thay');
+
+for (var i = 0; i < 10; i++) {
+    console.log(b[i].data);
 }
 
-abc(5);
-dce();
+console.log(b.indexOf(e));
