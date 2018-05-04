@@ -36,6 +36,15 @@ var GameModel = function () {
         }
         return listCounters;
     }
+    this.updateScore() {
+        for (var i = 0; i < 8; i++) {
+            for (var j = 0; j < 8; j++) {
+                if (this.board[i][j] == -1)
+                    this.scores[1]++;
+                else this.scores[0]++;
+            }
+        }
+    }
     this.checkBoard = function (id, ix, iy) {
         var x = parseInt(id[0]);
         var y = parseInt(id[1]);
@@ -87,9 +96,9 @@ var GameModel = function () {
             if (!isOutOfBoard(i, j) && this.board[i][j] != 0) {
                 for (var m = x, n = y; m != i || n != j; m += ix, n += iy) {
                     this.board[m][n] = this.board[x][y];
-                    if (this.board[x][y] == -1)
-                        this.scores[1]++;
-                    else this.scores[0]++;
+                    if (this.board[x][y] == -1);
+                        //this.scores[1]++;
+                    //else this.scores[0]++;
                 }
             }
         }
@@ -106,6 +115,7 @@ var GameModel = function () {
         var x = parseInt(_coordiantes[0]), y = parseInt(_coordiantes[1]);
         this.board[x][y] = playerType;
         this.flip(x, y);
+        this.updateScore();
         return this;
     }
     this.isTerminal = function () {

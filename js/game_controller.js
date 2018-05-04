@@ -91,7 +91,7 @@ var BotPlayer = function (model, view, type) {
         cpyModel = this.model.cloneObj();
         for (var i = 0; i < listMoves.length; i++) {
             move = listMoves[i];
-            var moveScore = this.getMinValue(this.type * -1, cpyModel.placeCounter(this.type, move), depth - 1, -INFINITY, INFINITY);
+            var moveScore = this.getMaxValue(this.type * -1, cpyModel.placeCounter(this.type, move), depth - 1, -INFINITY, INFINITY);
             if (bestMove == null || bestScore < moveScore) {
                 bestScore = moveScore;
                 bestMove = move;
