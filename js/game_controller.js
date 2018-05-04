@@ -83,6 +83,7 @@ var BotPlayer = function (model, view, type) {
         this.model.placeCounter(this.type, move);
         this.view.updateBoard(this.model.board);
         this.view.updateScore(this.model.scores[1], 'ScoreBot');
+        view.updateScore(model.scores[0], 'ScorePlayer');
         this.model.turn = PLAYER;
     }
     this.decide = function () {

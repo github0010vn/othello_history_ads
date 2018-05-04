@@ -36,12 +36,15 @@ var GameModel = function () {
         }
         return listCounters;
     }
-    this.updateScore() {
+    this.updateScore = function () {
+        this.scores[0] = 0;
+        this.scores[1] = 0;
         for (var i = 0; i < 8; i++) {
             for (var j = 0; j < 8; j++) {
                 if (this.board[i][j] == -1)
                     this.scores[1]++;
-                else this.scores[0]++;
+                else if (this.board[i][j] == 1)
+                    this.scores[0]++;
             }
         }
     }

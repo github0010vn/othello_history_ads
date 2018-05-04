@@ -45,6 +45,7 @@ handleClick = function (id) {
     model.placeCounter(PLAYER, id);
     view.updateBoard(model.board);
     view.updateScore(model.scores[0], 'ScorePlayer');
+    this.view.updateScore(this.model.scores[1], 'ScoreBot');
     human.disableListen();
     takeTurn('framePlayer', 'frameBotAI');
     setTimeout(botPerform, 2000);
